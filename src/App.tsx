@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Github } from 'lucide-react';
+import { Github, Menu, X } from 'lucide-react';
 import Home from './pages/Home';
 import Generator from './pages/Generator';
 import Demo from './pages/Demo';
@@ -13,6 +13,13 @@ import { useScrollToTop } from './hooks/useScrollToTop';
 export default function App() {
   useScrollToTop();
   const [latestVersion, setLatestVersion] = useState('v4.1.0');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
 
   // Fetch latest release from GitHub
   useEffect(() => {
@@ -33,10 +40,12 @@ export default function App() {
         <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-xl border-b border-white/5 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
-              <Link to="/" className="flex items-center gap-2">
-                <img src="/logo-no-text.svg" alt="ShieldPM" className="w-8 h-8" />
+              <Link to="/" className="flex items-center gap-2" onClick={() => setIsMenuOpen(false)}>
+                <img src={`${import.meta.env.BASE_URL}logo-no-text.svg`} alt="ShieldPM" className="w-8 h-8" />
                 <span className="text-xl font-bold">ShieldPM</span>
               </Link>
+
+              {/* Desktop Menu */}
               <div className="hidden md:flex items-center gap-8">
                 <Link to="/#features" className="text-slate-300 hover:text-white transition">Features</Link>
                 <Link to="/generator" className="text-slate-300 hover:text-white transition">Generator</Link>
@@ -48,8 +57,34 @@ export default function App() {
                   GitHub
                 </a>
               </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                className="md:hidden p-2 text-slate-300 hover:text-white transition"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
           </div>
+
+          {/* Mobile Menu Overlay */}
+          {isMenuOpen && (
+            <div className="md:hidden absolute top-16 left-0 w-full bg-slate-900/95 backdrop-blur-xl border-b border-white/5 animate-fade-down">
+              <div className="flex flex-col px-4 py-4 space-y-4">
+                <Link to="/#features" className="text-slate-300 hover:text-white transition py-2 border-b border-white/5">Features</Link>
+                <Link to="/generator" className="text-slate-300 hover:text-white transition py-2 border-b border-white/5">Generator</Link>
+                <Link to="/#installation" className="text-slate-300 hover:text-white transition py-2 border-b border-white/5">Installation</Link>
+                <Link to="/demo" className="text-slate-300 hover:text-white transition py-2 border-b border-white/5">Demo</Link>
+                <Link to="/wiki" className="text-slate-300 hover:text-white transition py-2 border-b border-white/5">Wiki</Link>
+                <a href="https://github.com/shedowe19/ShieldPM" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 py-2">
+                  <Github className="w-4 h-4" />
+                  GitHub Repository
+                </a>
+              </div>
+            </div>
+          )}
         </nav>
 
         <Routes>
@@ -66,7 +101,7 @@ export default function App() {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-2">
-                <img src="/logo-no-text.svg" alt="ShieldPM" className="w-6 h-6" loading="lazy" />
+                <img src={`${import.meta.env.BASE_URL}logo-no-text.svg`} alt="ShieldPM" className="w-6 h-6" loading="lazy" />
                 <span className="font-bold">ShieldPM</span>
                 <span className="text-slate-500 text-sm">{latestVersion}</span>
               </div>

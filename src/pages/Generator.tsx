@@ -448,9 +448,9 @@ volumes:`;
 
                 <div className="grid lg:grid-cols-2 gap-8 animate-fade-up opacity-0" style={{ animationDelay: '0.2s' }}>
                     {/* Configuration Panel */}
-                    <div className="space-y-6">
+                    <div className="space-y-6 min-w-0">
                         {/* Basic Settings */}
-                        <div className="glass-card rounded-2xl p-6">
+                        <div className="glass-card rounded-2xl p-4 sm:p-6">
                             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                                 <Settings className="w-5 h-5 text-emerald-400" />
                                 Basic Settings
@@ -469,7 +469,7 @@ volumes:`;
                                     <input type="text" value={config.volumePath} onChange={(e) => setConfig({ ...config, volumePath: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:border-emerald-500 focus:outline-none placeholder:text-slate-600" placeholder="/opt/shieldpm" />
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-sm text-slate-400 mb-2">PUID</label>
                                         <input type="text" value={config.puid} onChange={(e) => setConfig({ ...config, puid: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:border-emerald-500 focus:outline-none" placeholder="0" />
@@ -483,7 +483,7 @@ volumes:`;
                         </div>
 
                         {/* ACME / SSL */}
-                        <div className="glass-card rounded-2xl p-6">
+                        <div className="glass-card rounded-2xl p-4 sm:p-6">
                             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                                 <Lock className="w-5 h-5 text-emerald-400" />
                                 ACME / SSL Certificates
@@ -503,7 +503,7 @@ volumes:`;
                                 </div>
 
                                 {needsEab && (
-                                    <div className="grid grid-cols-2 gap-4 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg">
                                         <div>
                                             <label className="block text-sm text-amber-400 mb-2">EAB Key ID *</label>
                                             <input type="text" value={config.acmeEabKid} onChange={(e) => setConfig({ ...config, acmeEabKid: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:border-emerald-500 focus:outline-none" />
@@ -515,7 +515,7 @@ volumes:`;
                                     </div>
                                 )}
 
-                                <div className="flex gap-4">
+                                <div className="flex flex-col sm:flex-row gap-4">
                                     <div className="flex-1">
                                         <label className="block text-sm text-slate-400 mb-2">Key Type</label>
                                         <select value={config.acmeKeyType} onChange={(e) => setConfig({ ...config, acmeKeyType: e.target.value as 'ecdsa' | 'rsa' })} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:border-emerald-500 focus:outline-none">
@@ -529,7 +529,7 @@ volumes:`;
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input type="checkbox" checked={config.acmeOcspStapling} onChange={(e) => setConfig({ ...config, acmeOcspStapling: e.target.checked })} className="w-4 h-4 rounded bg-white/10 border-white/10 text-emerald-600" />
                                         <span className="text-sm text-slate-300">OCSP Stapling</span>
@@ -547,14 +547,14 @@ volumes:`;
                         </div>
 
                         {/* Database */}
-                        <div className="glass-card rounded-2xl p-6">
+                        <div className="glass-card rounded-2xl p-4 sm:p-6">
                             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                                 <Database className="w-5 h-5 text-emerald-400" />
                                 Database
                             </h3>
 
                             <div className="space-y-4">
-                                <div className="flex gap-2">
+                                <div className="flex flex-col sm:flex-row gap-2">
                                     {(['sqlite', 'mysql', 'postgres'] as const).map((db) => (
                                         <button key={db} onClick={() => setConfig({ ...config, dbType: db, dbPort: db === 'postgres' ? '5432' : '3306' })} className={`flex-1 px-4 py-2 rounded-lg font-medium transition ${config.dbType === db ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}>
                                             {db === 'sqlite' ? 'SQLite' : db === 'mysql' ? 'MySQL' : 'PostgreSQL'}
@@ -563,7 +563,7 @@ volumes:`;
                                 </div>
 
                                 {config.dbType !== 'sqlite' && (
-                                    <div className="grid grid-cols-2 gap-4 mt-4">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
                                         <div>
                                             <label className="block text-sm text-slate-400 mb-2">Host</label>
                                             <input type="text" value={config.dbHost} onChange={(e) => setConfig({ ...config, dbHost: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:border-emerald-500 focus:outline-none" />
@@ -596,7 +596,7 @@ volumes:`;
                         </div>
 
                         {/* Security Services */}
-                        <div className="glass-card rounded-2xl p-6">
+                        <div className="glass-card rounded-2xl p-4 sm:p-6">
                             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                                 <Lock className="w-5 h-5 text-emerald-400" />
                                 Security Services
@@ -622,7 +622,7 @@ volumes:`;
 
                                     {config.enableOpenappsec && (
                                         <div className="mt-4 space-y-4">
-                                            <div className="flex gap-2">
+                                            <div className="flex flex-col sm:flex-row gap-2">
                                                 <button onClick={() => setConfig({ ...config, openappsecMode: 'cloud' })} className={`flex-1 px-4 py-3 rounded-lg font-medium transition flex items-center justify-center gap-2 ${config.openappsecMode === 'cloud' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}>
                                                     <Cloud className="w-4 h-4" />
                                                     Cloud
@@ -657,14 +657,14 @@ volumes:`;
                         </div>
 
                         {/* Features */}
-                        <div className="glass-card rounded-2xl p-6">
+                        <div className="glass-card rounded-2xl p-4 sm:p-6">
                             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                                 <Lock className="w-5 h-5 text-emerald-400" />
                                 Features & Modules
                             </h3>
 
                             <div className="space-y-4">
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input type="checkbox" checked={config.goaccess} onChange={(e) => setConfig({ ...config, goaccess: e.target.checked, logrotate: e.target.checked || config.logrotate })} className="w-4 h-4 rounded bg-white/10 border-white/10 text-emerald-600" />
                                         <span className="text-sm text-slate-300">GoAccess Analytics</span>
@@ -693,7 +693,7 @@ volumes:`;
 
                                 <div className="border-t border-slate-700 pt-4 mt-4">
                                     <p className="text-sm text-slate-400 mb-3">Nginx Modules</p>
-                                    <div className="grid grid-cols-2 gap-3">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         <label className="flex items-center gap-2 cursor-pointer">
                                             <input type="checkbox" checked={config.loadGeoip2} onChange={(e) => setConfig({ ...config, loadGeoip2: e.target.checked })} className="w-4 h-4 rounded bg-white/10 border-white/10 text-emerald-600" />
                                             <span className="text-sm text-slate-300">GeoIP2</span>
@@ -716,7 +716,7 @@ volumes:`;
                         </div>
 
                         {/* Additional Services */}
-                        <div className="glass-card rounded-2xl p-6">
+                        <div className="glass-card rounded-2xl p-4 sm:p-6">
                             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                                 <Server className="w-5 h-5 text-emerald-400" />
                                 Additional Services
@@ -741,7 +741,7 @@ volumes:`;
                                     </label>
 
                                     {config.enableGeoipUpdate && (
-                                        <div className="grid grid-cols-2 gap-4 mt-4">
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
                                             <div>
                                                 <label className="block text-sm text-slate-400 mb-2">Account ID *</label>
                                                 <input type="text" value={config.geoipAccountId} onChange={(e) => setConfig({ ...config, geoipAccountId: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:border-emerald-500 focus:outline-none" />
@@ -765,7 +765,7 @@ volumes:`;
 
                             {showAdvanced && (
                                 <div className="px-6 pb-6 space-y-4">
-                                    <div className="grid grid-cols-2 gap-4">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm text-slate-400 mb-2">UI Port</label>
                                             <input type="text" value={config.npmPort} onChange={(e) => setConfig({ ...config, npmPort: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:border-emerald-500 focus:outline-none" />
@@ -792,7 +792,7 @@ volumes:`;
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-3 pt-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
                                         <label className="flex items-center gap-2 cursor-pointer">
                                             <input type="checkbox" checked={config.disableHttp} onChange={(e) => setConfig({ ...config, disableHttp: e.target.checked })} className="w-4 h-4 rounded bg-white/10 border-white/10 text-emerald-600" />
                                             <span className="text-sm text-slate-300">Disable HTTP</span>
@@ -831,7 +831,7 @@ volumes:`;
 
                             {showNginxAdvanced && (
                                 <div className="px-6 pb-6 space-y-4">
-                                    <div className="grid grid-cols-2 gap-4">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-sm text-slate-400 mb-2">Worker Processes</label>
                                             <input type="text" value={config.workerProcesses} onChange={(e) => setConfig({ ...config, workerProcesses: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:border-emerald-500 focus:outline-none" placeholder="auto" />
@@ -855,7 +855,7 @@ volumes:`;
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-3 pt-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
                                         <label className="flex items-center gap-2 cursor-pointer">
                                             <input type="checkbox" checked={config.disableProxyBuffering} onChange={(e) => setConfig({ ...config, disableProxyBuffering: e.target.checked })} className="w-4 h-4 rounded bg-white/10 border-white/10 text-emerald-600" />
                                             <span className="text-sm text-slate-300">Disable Buffering</span>
@@ -886,10 +886,10 @@ volumes:`;
                         </div>
 
                         {/* Initialization */}
-                        <div className="glass-card rounded-2xl p-6">
+                        <div className="glass-card rounded-2xl p-4 sm:p-6">
                             <h3 className="text-lg font-semibold mb-4">Initial Setup (optional)</h3>
                             <p className="text-sm text-slate-400 mb-4">Pre-configure admin account for automated deployments</p>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-sm text-slate-400 mb-2">Admin Email</label>
                                     <input type="email" value={config.initialAdminEmail} onChange={(e) => setConfig({ ...config, initialAdminEmail: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:border-emerald-500 focus:outline-none" />
@@ -903,7 +903,7 @@ volumes:`;
                     </div>
 
                     {/* Output Panel */}
-                    <div className="lg:sticky lg:top-24 h-fit">
+                    <div className="lg:sticky lg:top-24 h-fit min-w-0">
                         <div className="glass-card rounded-2xl overflow-hidden">
                             <div className="flex items-center justify-between px-4 py-3 bg-white/5 border-b border-white/5">
                                 <div className="flex items-center gap-2">

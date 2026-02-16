@@ -53,8 +53,7 @@ export default function Home({ latestVersion }: HomeProps) {
                         </a>
                     </div>
 
-                    {/* Stats/Tech Stack Preview */}
-                    <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto animate-fade-up opacity-0" style={{ animationDelay: '1s' }}>
+                    <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto animate-fade-up opacity-0" style={{ animationDelay: '1s' }}>
                         <div className="glass-card p-6 rounded-2xl text-center group">
                             <div className="text-3xl font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">100%</div>
                             <div className="text-sm text-slate-500">Open Source</div>
@@ -132,7 +131,7 @@ export default function Home({ latestVersion }: HomeProps) {
                     <h2 className="text-2xl font-bold text-white">Powered by Industry Standards</h2>
                 </div>
 
-                <div className="relative flex overflow-x-hidden">
+                <div className="relative flex overflow-x-hidden w-full">
                     <div className="animate-marquee whitespace-nowrap flex gap-8 py-4">
                         {[...STACK_ITEMS, ...STACK_ITEMS].map((stack, idx) => (
                             <div key={idx} className="inline-flex items-center gap-4 bg-white/5 px-6 py-3 rounded-full border border-white/5">
@@ -186,7 +185,7 @@ export default function Home({ latestVersion }: HomeProps) {
                         <p className="text-slate-400">Built with modern, battle-tested technologies</p>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                         {STACK_ITEMS.map((stack, index) => (
                             <div key={index} className="glass-card rounded-xl p-6 hover:-translate-y-1 transition-transform">
                                 <div className="text-emerald-400 font-semibold mb-4">{stack.category}</div>
